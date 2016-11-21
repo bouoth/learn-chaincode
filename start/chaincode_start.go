@@ -38,7 +38,7 @@ func main() {
 }
 
 // Init resets all the things
-func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
+func (t *SimpleChaincode) Init(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
 	if len(args) != 1 {
 		return nil, errors.New("Incorrect number of arguments. Expecting 1")
 	}
@@ -54,7 +54,7 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 
 // Query is our entry point for queries
 
-func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
+func (t *SimpleChaincode) Query(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
 	fmt.Println("query is running " + function)
 
 	if function == "read" {                            //read a variable
@@ -68,7 +68,7 @@ fmt.Println("query did not find func: " + function)						//error
 
 
 
-func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
+func (t *SimpleChaincode) Invoke(stub *shim.ChaincodeStub, function string, args []string) ([]byte, error) {
     fmt.Println("invoke is running " + function)
 
     // Handle different functions
@@ -82,7 +82,7 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface, function stri
     return nil, errors.New("Received unknown function invocation")
 }
 
-func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
+func (t *SimpleChaincode) write(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
     var name, value string
     var err error
     fmt.Println("running write()")
@@ -100,7 +100,7 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
     return nil, nil
 }
 
-func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
+func (t *SimpleChaincode) read(stub *shim.ChaincodeStub, args []string) ([]byte, error) {
     var name, jsonResp string
     var err error
 
